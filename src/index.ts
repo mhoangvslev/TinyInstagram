@@ -1,2 +1,11 @@
 import m from "mithril";
-m.render(document.body, "hello world");
+import { getUserView, getFollowersView } from "./views/UserView";
+
+
+/**
+ * Routing
+ */
+m.route(document.body, "/users", {
+    "/users": getUserView,
+    "/users/followers": getFollowersView
+});
