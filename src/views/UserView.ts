@@ -1,26 +1,24 @@
 import m, { Vnode } from "mithril";
 import { User } from "../models/User";
 
-const container:any = document.getElementById("container");
+var attachto: any = document.getElementById('container');
 
 export var getUserView: any = {
     oninit: User.getUsers,
-    view: function () {
-        return m(".user-list", User.users.map(function (user: any) {
-            return m(".user-list-item", user.id + "@" + user.username + ": " + user.name)
-        }));
+    view: function() {
+        return m(".user-list .black-text", User.users.map(function(user: any) {
+            return m(".user-list-item","@" + user.username + ": " + user.name)
+        }))
     }
 }
+m.mount(document.body, getUserView);
 
-export var getFollowersView: any = {
-    controller: function () {
-        return { userId: m.route.param("userId") }
-    },
-    view: function (controller: any) {
-        console.log(controller.userId);
-        User.getFollowers(controller.userId);
+//navbar partout osef, on fait des component pour chaque truc et on le mount partout
 
-        return m(".followers-list", User.followers.map(function (follower: any) {
+export var getFollowersView = {
+    oninit: User.getFollowers,
+    view: function() {
+        return m(".followers-list", User.followers.map(function(follower: any) {
             return m(".followers-list-item", "@" + follower)
         }));
     }
