@@ -7,5 +7,7 @@ import { getUserView, getFollowersView } from "./views/UserView";
  */
 m.route(document.body, "/users", {
     "/users": getUserView,
-    "/users/followers": getFollowersView
+    "/user/followers/:userId": getFollowersView
 });
+
+//m.route.mode = "hash";
