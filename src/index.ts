@@ -19,3 +19,5 @@ m.route(document.body, "/login", {
       return m(navBar, m(getPostView))
     }}
 });
+
+//m.route.mode = "hash";

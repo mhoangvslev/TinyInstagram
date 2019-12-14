@@ -20,6 +20,6 @@ export var getFollowersView = {
     view: function() {
         return m(".followers-list", User.followers.map(function(follower: any) {
             return m(".followers-list-item", "@" + follower)
-        }))
+        }));
     }
 }

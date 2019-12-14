@@ -2,7 +2,6 @@ import m from "mithril";
 import { String } from "typescript-string-operations";
 
 export var User = {
-    userId: null,
     users: [],
     followers: [],
     following: [],
@@ -31,11 +30,11 @@ export var User = {
     /**
      * Retrieve all users
      */
-    getFollowers: function () {
+    getFollowers: function (userId: any) {
         const apiURL: string = "https://tinyinstagram.appspot.com/_ah/api/tinyinsta/v1/user/{userId}/followers";
         return m.request({
             method: "GET",
-            url: String.Format(apiURL, User.userId),
+            url: String.Format(apiURL, userId),
             //data: jsonData,
             withCredentials: false // use cookies?,
         }).then(function (result: any) {

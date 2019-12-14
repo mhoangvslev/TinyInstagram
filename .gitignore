@@ -88,3 +88,7 @@ typings/
 .dynamodb/
 
 dist/scripts/app.js
+
+.idea/
+
+*.iml
