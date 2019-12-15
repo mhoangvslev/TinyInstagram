@@ -1,5 +1,6 @@
 import m, { Vnode } from "mithril";
 import { User } from "../models/User";
+import { UserResult } from "../utils";
 
 export var navBar = {
     view: function (vnode: any) {
@@ -37,6 +38,9 @@ export var login = {
                 .then(() => {
                     m.route.set("/user/:userId", {userId: User.userId});
                 })
+        },
+        register: () => {
+            m.route.set("/register");
         }
     },
     view: function () {
@@ -57,7 +61,7 @@ export var login = {
                             // Sign in button
                             m('div[class=row]', [m("input", {class: "card-action", type: "submit", value: "Connexion" })]),
                             // Sign up button
-                            m('div[class=row]', [m("input", {class: "card-action", type: "button", value: "Créer un compte" })]),
+                            m('div[class=row]', [m("input", {class: "card-action", type: "button", value: "Créer un compte", onclick: this.controller.register })]),
                         ])
                     ])
                 ])
