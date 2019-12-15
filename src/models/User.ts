@@ -1,19 +1,7 @@
 import m from "mithril";
-import { String } from "typescript-string-operations";
 
-//const endpointURL = "https://tinyinstagram.appspot.com/"
-const endpointURL = "http://localhost:8080/"
-
-interface UserResultItem {
-    username: string;
-    name: string;
-    avatarURL: string;
-    id: string;
-}
-
-interface UserResult {
-    items: UserResultItem[];
-}
+const endpointURL = "https://tinyinstagram.appspot.com/"
+//const endpointURL = "http://localhost:8080/"
 
 export var User = {
     userId: "",
@@ -28,15 +16,99 @@ export var User = {
     /**
      * Retrieve all users
      */
-    getFollowers: function (userId: any) {
-        const apiURL: string = endpointURL + "_ah/api/tinyinsta/v1/user/{userId}/followers";
+    getFollowers: function () {
+        const apiURL: string = endpointURL + `_ah/api/tinyinsta/v1/user/${User.userId}/followers`;
         return m.request({
             method: "GET",
-            url: String.Format(apiURL, userId),
+            url: apiURL,
             //data: jsonData,
             withCredentials: false // use cookies?,
         }).then(function (result: any) {
             User.followers = (result as UserResult).items;
+        }).catch((reason: any) => {
+            console.error(reason);
+        })
+    },
+
+    /**
+     * Retrieve all users
+     */
+    getFollowing: function () {
+        const apiURL: string = endpointURL + `_ah/api/tinyinsta/v1/user/${User.userId}/following`;
+        return m.request({
+            method: "GET",
+            url: apiURL,
+            //data: jsonData,
+            withCredentials: false // use cookies?,
+        }).then(function (result: any) {
+            User.following = (result as UserResult).items;
+        }).catch((reason: any) => {
+            console.error(reason);
+        })
+    },
+
+    /**
+     * User likes a post
+     * @param postId post ID
+     */
+    like: function(postId: number) {
+        return m.request({
+            method: "PUT",
+            url: endpointURL + `_ah/api/tinyinsta/v1/user/${User.userId}/like/${postId}`,
+            //data: jsonData,
+            withCredentials: false // use cookies?,
+        }).then(function (result: any) {
+
+        }).catch((reason: any) => {
+            console.error(reason);
+        })
+    },
+
+    /**
+     * User likes a post
+     * @param postId post ID
+     */
+    unlike: function(postId: number) {
+        return m.request({
+            method: "PUT",
+            url: endpointURL + `_ah/api/tinyinsta/v1/user/${User.userId}/unlike/${postId}`,
+            withCredentials: false // use cookies?,
+        }).then(function (result: any) {
+
+        }).catch((reason: any) => {
+            console.error(reason);
+        })
+    },
+
+    /**
+     * User follows another User
+     * @param userId target ID
+     */
+    follow: function(userId: number) {
+        return m.request({
+            method: "PUT",
+            url: endpointURL + `_ah/api/tinyinsta/v1/user/${User.userId}/follow/${userId}`,
+            //data: jsonData,
+            withCredentials: false // use cookies?,
+        }).then(function (result: any) {
+
+        }).catch((reason: any) => {
+            console.error(reason);
+        })
+    },
+
+    /**
+     * User follows another User
+     * @param userId target ID
+     */
+    unfollow: function(userId: number) {
+        return m.request({
+            method: "PUT",
+            url: endpointURL + `_ah/api/tinyinsta/v1/user/${User.userId}/unfollow/${userId}`,
+            //data: jsonData,
+            withCredentials: false // use cookies?,
+        }).then(function (result: any) {
+
         }).catch((reason: any) => {
             console.error(reason);
         })
@@ -68,7 +140,7 @@ export var User = {
             method: "GET",
             url: servletURL
         }).then((result: any) => {
-            User.userId = (result as UserResult ).items[0].id
+            User.userId = (result as UserResult).items[0].id;
         }).catch((reason: any) => {
             console.error(reason);
         })
