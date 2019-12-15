@@ -1,23 +1,17 @@
 import m from "mithril";
-
-const endpointURL = "https://tinyinstagram.appspot.com/"
-//const endpointURL = "http://localhost:8080/"
+import { getEndpoint, UserResult, UserResultItem } from "../utils";
 
 export var User = {
-    userId: "",
+    userId: "", // mon Id
     userTool: "",
     followers: [] as UserResultItem[],
     following: [] as UserResultItem[],
 
     /**
-     * Create user
-     */
-
-    /**
      * Retrieve all users
      */
     getFollowers: function () {
-        const apiURL: string = endpointURL + `_ah/api/tinyinsta/v1/user/${User.userId}/followers`;
+        const apiURL: string = getEndpoint() + `_ah/api/tinyinsta/v1/user/${User.userId}/followers`;
         return m.request({
             method: "GET",
             url: apiURL,
@@ -34,7 +28,7 @@ export var User = {
      * Retrieve all users
      */
     getFollowing: function () {
-        const apiURL: string = endpointURL + `_ah/api/tinyinsta/v1/user/${User.userId}/following`;
+        const apiURL: string = getEndpoint() + `_ah/api/tinyinsta/v1/user/${User.userId}/following`;
         return m.request({
             method: "GET",
             url: apiURL,
@@ -51,10 +45,10 @@ export var User = {
      * User likes a post
      * @param postId post ID
      */
-    like: function(postId: number) {
+    like: function (postId: number) {
         return m.request({
             method: "PUT",
-            url: endpointURL + `_ah/api/tinyinsta/v1/user/${User.userId}/like/${postId}`,
+            url: getEndpoint() + `_ah/api/tinyinsta/v1/user/${User.userId}/like/${postId}`,
             //data: jsonData,
             withCredentials: false // use cookies?,
         }).then(function (result: any) {
@@ -68,10 +62,10 @@ export var User = {
      * User likes a post
      * @param postId post ID
      */
-    unlike: function(postId: number) {
+    unlike: function (postId: number) {
         return m.request({
             method: "PUT",
-            url: endpointURL + `_ah/api/tinyinsta/v1/user/${User.userId}/unlike/${postId}`,
+            url: getEndpoint() + `_ah/api/tinyinsta/v1/user/${User.userId}/unlike/${postId}`,
             withCredentials: false // use cookies?,
         }).then(function (result: any) {
 
@@ -84,10 +78,10 @@ export var User = {
      * User follows another User
      * @param userId target ID
      */
-    follow: function(userId: number) {
+    follow: function (userId: number) {
         return m.request({
             method: "PUT",
-            url: endpointURL + `_ah/api/tinyinsta/v1/user/${User.userId}/follow/${userId}`,
+            url: getEndpoint() + `_ah/api/tinyinsta/v1/user/${User.userId}/follow/${userId}`,
             //data: jsonData,
             withCredentials: false // use cookies?,
         }).then(function (result: any) {
@@ -101,10 +95,10 @@ export var User = {
      * User follows another User
      * @param userId target ID
      */
-    unfollow: function(userId: number) {
+    unfollow: function (userId: number) {
         return m.request({
             method: "PUT",
-            url: endpointURL + `_ah/api/tinyinsta/v1/user/${User.userId}/unfollow/${userId}`,
+            url: getEndpoint() + `_ah/api/tinyinsta/v1/user/${User.userId}/unfollow/${userId}`,
             //data: jsonData,
             withCredentials: false // use cookies?,
         }).then(function (result: any) {
@@ -118,7 +112,7 @@ export var User = {
      * Get the URL for use in servlet
      */
     getToolURL: function () {
-        const servletURL = endpointURL + "_servlet/user-util?action=get-upload-url";
+        const servletURL = getEndpoint() + "_servlet/user-util?action=get-upload-url";
         // console.log(servletURL);
         return m.request({
             method: "GET",
@@ -131,10 +125,40 @@ export var User = {
     },
 
     /**
-     * Login an user
+     * Find an user by either name, username or both. If empty, return all users
+     * @param username 
+     * @param name 
+     * @param limit 
+     */
+    find: function (username?: string, name?: string, limit?: number) {
+        var params = (limit) ? `?limit=${limit}` : "?";
+        if (username && name) {
+            params += `username=${username}&name=${name}`;
+        } else if (username) {
+            params += `username=${username}`;
+        } else if (name) {
+            params += `name=${name}`;
+        } else if (limit == undefined){
+            params = "";
+        }
+
+        console.log(params);
+
+        return m.request({
+            method: "GET",
+            url: getEndpoint() + "_ah/api/tinyinsta/v1/user/find" + params
+        }).then((result: any) => {
+            User.userId = (result as UserResult).items[0].id;
+        }).catch((reason: any) => {
+            console.error(reason);
+        })
+    },
+
+    /**
+     * Login an user by gettng his userId. userId will be stored in User.userId
      */
     doLogin: function (userName: string) {
-        const servletURL = endpointURL + "_ah/api/tinyinsta/v1/user/find?username=" + userName;
+        const servletURL = getEndpoint() + "_ah/api/tinyinsta/v1/user/find?username=" + userName;
         console.log(servletURL);
         return m.request({
             method: "GET",

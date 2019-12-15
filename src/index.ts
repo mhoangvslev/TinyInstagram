@@ -1,19 +1,33 @@
 import m from "mithril";
 import { getUserView, getFollowersView, registerView } from "./views/UserView";
-import { getPostView } from "./views/PostView";
+import { udpatePostView, createPostView } from "./views/PostView";
 import { navBar, login } from "./views/LayoutView";
 
 /**
  * Routing
  */
 m.route(document.body, "/login", {
+
+  /**
+   * ======================
+   * USER
+   * ======================
+   */
   "/login": login,
   "/register": {
     render: function () {
       return m(navBar, m(registerView))
     }
   },
-  "/user": {
+
+  "user/find/": {
+    render: function () {
+      return m(navBar, m(registerView))
+    }
+  },
+
+  // onclick(), m.route.set("/user/:userId", {userId: targetId | userId})
+  "/user/:userId": {
     render: function () {
       return m(navBar, [
         m(getUserView),
@@ -26,9 +40,23 @@ m.route(document.body, "/login", {
       return m(navBar, m(getFollowersView))
     }
   },
-  "/post/all": {
+
+  /**
+   * ============================
+   * POSTS
+   * ============================
+   */
+  
+  "/post/create": {
     render: function () {
-      return m(navBar, m(getPostView))
+      return m(navBar, m(createPostView));
+    }
+  },
+
+  // Boutton modify onclick(), récup le id du post concerné selectElementById et mets dans Post.currentPost
+  "/post/modify": {
+    render: function () {
+      return m(navBar, m(udpatePostView));
     }
   }
 });

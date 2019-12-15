@@ -1,8 +1,6 @@
 import m, { Vnode } from "mithril";
 import { User } from "../models/User";
 
-declare const userId: String;
-
 export var navBar = {
     view: function (vnode: any) {
         return m('nav[class=grey lighten-5]', [
@@ -37,7 +35,7 @@ export var login = {
             const data = new FormData(e.target);
             User.doLogin(data.get("username") as string)
                 .then(() => {
-                    m.route.set("/user");
+                    m.route.set("/user/:userId", {userId: User.userId});
                 })
         }
     },
