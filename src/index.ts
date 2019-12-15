@@ -20,7 +20,7 @@ m.route(document.body, "/login", {
     }
   },
 
-  "user/find/": {
+  "/user/find/": {
     render: function () {
       return m(navBar, m(registerView))
     }
