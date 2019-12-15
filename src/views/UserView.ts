@@ -1,5 +1,6 @@
 import m, { Vnode } from "mithril";
 import { User } from "../models/User";
+import { ToolOperation } from "../utils";
 
 var attachto: any = document.getElementById('container');
 
@@ -46,7 +47,7 @@ function getUserUtilsForm(operation: ToolOperation): Vnode<any, any> {
     return m("form", { action: User.userTool, method: "post", enctype: "multipart/form-data" }, [
         // Hidden fields: the servlet will use these to perform update/create on userId
         m("input", { type: "hidden", id: "user-util-form-action", name: "actionType", value: operation }),
-        m("input", { type: "hidden", id: "post-util-form-userId", name: "userId", value: User.userId }), ,
+        m("input", { type: "hidden", id: "user-util-form-userId", name: "userId", value: User.userId }), ,
         m("ul", [
             m("li", ["Username: ", m("input[required]", { type: "text", name: "username" })]),
             m("li", ["Name: ", m("input[required]", { type: "text", name: "name" })]),
