@@ -1,3 +1,5 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!doctype html>
 <!--
 Copyright 2019 minhhoangdang.
 
@@ -13,8 +15,6 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!doctype html>
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,11 +22,6 @@ limitations under the License.
         <title>TinyInstagram</title>
     </head>
     <body>
-        <!--<script src="scripts/app.js"></script>-->
-        <div id="container">
-            <ul>
-                <li><a href="https://tinyinstagram.appspot.com/tools/user.jsp">User-Util</a></li>
-            </ul>
-        </div>
+        <script src="scripts/app.js"></script>
     </body>
 </html>
