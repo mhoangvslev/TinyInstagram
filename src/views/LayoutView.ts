@@ -1,5 +1,6 @@
 import m, { Vnode } from "mithril";
 import { User } from "../models/User";
+import { UserResult } from "../utils";
 
 export var navBar = {
     view: function (vnode: any) {
@@ -34,7 +35,8 @@ export var login = {
             e.preventDefault();
             const data = new FormData(e.target);
             User.doLogin(data.get("username") as string)
-                .then(() => {
+                .then((result: any) => {
+                    User.userId = (result as UserResult).items[0].id;
                     m.route.set("/user/:userId", {userId: User.userId});
                 })
         }

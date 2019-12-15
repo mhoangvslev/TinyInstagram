@@ -5,7 +5,6 @@ import { User } from "../models/User";
 
 var attachto:any = document.getElementById('container');
 
-
 export var createPostView = {
     oninit: Post.getToolURL,
     view: function () {

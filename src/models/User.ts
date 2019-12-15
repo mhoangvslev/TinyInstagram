@@ -130,16 +130,22 @@ export var User = {
      * @param name 
      * @param limit 
      */
-    find: function (username?: string, name?: string, limit?: number) {
-        var params = (limit) ? `?limit=${limit}` : "?";
-        if (username && name) {
-            params += `username=${username}&name=${name}`;
-        } else if (username) {
-            params += `username=${username}`;
-        } else if (name) {
-            params += `name=${name}`;
-        } else if (limit == undefined){
-            params = "";
+    find: function (userId?: string, username?: string, name?: string, limit?: number) {
+
+        var params ="";
+        if (userId) {
+            params = `?userId=${userId}`;
+        } else {
+            params = (limit) ? `?limit=${limit}` : "?";
+            if (username && name) {
+                params += `username=${username}&name=${name}`;
+            } else if (username) {
+                params += `username=${username}`;
+            } else if (name) {
+                params += `name=${name}`;
+            } else if (limit == undefined) {
+                params = "";
+            }
         }
 
         console.log(params);
@@ -147,8 +153,6 @@ export var User = {
         return m.request({
             method: "GET",
             url: getEndpoint() + "_ah/api/tinyinsta/v1/user/find" + params
-        }).then((result: any) => {
-            User.userId = (result as UserResult).items[0].id;
         }).catch((reason: any) => {
             console.error(reason);
         })
