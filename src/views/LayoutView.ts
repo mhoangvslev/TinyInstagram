@@ -35,10 +35,12 @@ export var login = {
             e.preventDefault();
             const data = new FormData(e.target);
             User.doLogin(data.get("username") as string)
-                .then((result: any) => {
-                    User.userId = (result as UserResult).items[0].id;
+                .then(() => {
                     m.route.set("/user/:userId", {userId: User.userId});
                 })
+        },
+        register: () => {
+            m.route.set("/register");
         }
     },
     view: function () {
@@ -59,7 +61,7 @@ export var login = {
                             // Sign in button
                             m('div[class=row]', [m("input", {class: "card-action", type: "submit", value: "Connexion" })]),
                             // Sign up button
-                            m('div[class=row]', [m("input", {class: "card-action", type: "button", value: "Créer un compte" })]),
+                            m('div[class=row]', [m("input", {class: "card-action", type: "button", value: "Créer un compte", onclick: this.controller.register })]),
                         ])
                     ])
                 ])

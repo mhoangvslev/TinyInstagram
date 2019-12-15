@@ -6,6 +6,7 @@ var attachto: any = document.getElementById('container');
 
 export var getUserView: any = {
     view: function (vnode: any) {
+        return m("h2", "Homepage");
         User.find(vnode.attrs.userId)
             .then((result: any) => {
                 var user: UserResultItem = (result as UserResult).items[0];

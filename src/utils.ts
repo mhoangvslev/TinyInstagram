@@ -42,7 +42,7 @@ export const endpointURL = "https://tinyinstagram.appspot.com/"
 export const testEndpointURL = "http://localhost:8080/"
 
 export function getEndpoint(setting?: "dev" | "prod"){
-    const s = setting ? setting : "prod";
+    const s = setting ? setting : "dev";
     return s == "dev" ? testEndpointURL : endpointURL;
 }
 
