@@ -15,7 +15,7 @@ export var Post = {
 
         return m.request({
             method: "GET",
-            url: getEndpoint() + `_ah/api/tinyinsta/v1/post/${userId}` + limitParam
+            url: getEndpoint() + `_ah/api/tinyinsta/v1/user/${userId}/posts` + limitParam
         }).then((result: any) => {
             Post.posts = (result as PostResult).items;
         }).catch((reason: any) => {
@@ -53,5 +53,5 @@ export var Post = {
         }).catch((reason: any) => {
             console.error(reason);
         })
-    },
+    }
 }
