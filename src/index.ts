@@ -3,7 +3,6 @@ import { getUserView, getFollowersView, registerView } from "./views/UserView";
 import { getPostView } from "./views/PostView";
 import { navBar, login } from "./views/LayoutView";
 
-
 /**
  * Routing
  */
@@ -16,7 +15,10 @@ m.route(document.body, "/login", {
   },
   "/user": {
     render: function () {
-      return m(navBar, m(getUserView))
+      return m(navBar, [
+        m(getUserView),
+        m(getFollowersView)
+      ])
     }
   },
   "/user/followers": {
