@@ -1,6 +1,6 @@
 import m from "mithril";
-import { getUserView, getFollowersView, registerView } from "./views/UserView";
-import { udpatePostView, createPostView } from "./views/PostView";
+import { getUserView, getFollowersView, registerView, getUserProfil } from "./views/UserView";
+import { udpatePostView, createPostView , getFollowersPostsView} from "./views/PostView";
 import { navBar, login } from "./views/LayoutView";
 
 /**
@@ -14,11 +14,7 @@ m.route(document.body, "/login", {
    * ======================
    */
   "/login": login,
-  "/register": {
-    render: function () {
-      return m(navBar, m(registerView))
-    }
-  },
+  "/register": registerView,
 
   "/user/find/": {
     render: function () {
@@ -29,15 +25,17 @@ m.route(document.body, "/login", {
   // onclick(), m.route.set("/user/:userId", {userId: targetId | userId})
   "/user/:userId": {
     render: function () {
-      return m(navBar, [
-        m(getUserView),
-        m(getFollowersView)
-      ])
+      return m(navBar, m(getUserProfil))
     }
   },
-  "/user/followers": {
+  "/user/followers":{
+    render:function(){
+        return m(navBar, m(getFollowersView))
+    }
+  },
+  "/": {
     render: function () {
-      return m(navBar, m(getFollowersView))
+      return m(navBar, m(getFollowersPostsView))
     }
   },
 

@@ -17,6 +17,7 @@ limitations under the License.
 -->
 <html>
     <head>
+        <link type="text/css" rel="stylesheet" href="css/css/materialize.min.css"  media="screen,projection"/>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="google-signin-client_id" content="429571425798-l9fsg0det5mmubaqcgmb8lq5noeofhgr.apps.googleusercontent.com">
         <title>TinyInstagram</title>
