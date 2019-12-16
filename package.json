@@ -2,18 +2,24 @@
   "name": "TinyInstagram",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "dist/app.js",
   "scripts": {
+    "build": "webpack --config webpack.config.js",
     "start": "webpack-dev-server --mode development"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "^12.12.17",
+    "materialize-css": "^1.0.0",
     "mithril": "^2.0.4",
-    "typescript": "^3.6.4"
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.3",
+    "typescript-string-operations": "^1.3.1"
   },
   "devDependencies": {
+    "@types/jquery": "^3.3.31",
     "@types/mithril": "^2.0.2",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10"

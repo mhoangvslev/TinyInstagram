@@ -4,7 +4,7 @@ module.exports = {
     entry: path.join(__dirname, 'src/index.ts'),
     output: {
         filename: 'app.js',
-        path: __dirname
+        path: path.join(__dirname, 'dist/scripts/')
     },
     module: {
         rules: [
