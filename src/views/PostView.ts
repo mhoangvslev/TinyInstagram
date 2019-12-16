@@ -1,6 +1,6 @@
 import m, { Vnode } from "mithril";
 import { Post } from "../models/Post";
-import { ToolOperation } from "../utils";
+import { ToolOperation, getImageFromBlob, PostResult, PostResultItem } from "../utils";
 import { User } from "../models/User";
 
 var attachto:any = document.getElementById('container');
@@ -16,6 +16,36 @@ export var udpatePostView = {
     oninit: Post.getToolURL,
     view: function () {
         return getPostUtilsForm("update");
+    }
+}
+
+export var getPostView: any = {
+    oninit: Post.getPostsByUser(User.userId),
+    view: function(){
+        Post.getPostsByUser(User.userId).then((result: any) => {
+            var post: PostResultItem = (result as PostResult).items[0];
+            return m(".post-list", Post.posts.map(function(post: any) {
+                return m('div',{class:"container post-list-item"}, [
+                    m('div',{class:"black-test"},post.caption + " " + post.postedBy)
+                    //m('img',{src:getImageFromBlob(post.imageURL)})
+                ])
+            }))
+        })
+    }
+}
+
+export var getFollowersPostsView = {
+    oninit : Post.getPostsFromFollowers,
+    view : function(){
+        return m('div',{class:"followers-posts container"}, Post.posts.map(function(post:any){
+            return m(".followers-posts-item",[
+                m('div',{class:"card grey lighten-5"},[
+                    m('img',{src:post.imageURL}),
+                    m('span',{class:"black-text"}, post.postedBy),
+                    m('span',{class:"black-text"}, post.caption)
+                ])
+            ])
+        }));
     }
 }
 

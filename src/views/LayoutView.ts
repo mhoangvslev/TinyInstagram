@@ -9,10 +9,13 @@ export var navBar = {
                 m('a[href=#][class=brand-logo]', [
                     m('img[src=https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png]')
                 ]),
-                m("h1", "Navigation"),
                 m('ul[id=nav-mobile][class=right hide-on-med-and-down]', [
                     m('li', [
-                        m('a[href=#][class=black-text]', 'Profil')
+                        m('a',{href:'.#!/user/'+ User.userId,class:"black-text"}, 'Profil'),
+                        m('a',{href:'.#!/user/find',class:"black-text"}, 'Utilisateurs'),
+                        m('a',{href:'.#!/user/',class:"black-text"}, 'Abonnés'),
+                        m('a',{href:'.#!/user/',class:"black-text"}, 'Abonnements'),
+                        m('a',{href:'.#!/post/create',class:"black-text"}, 'NewPost')
                     ])
                 ])
             ])
@@ -49,11 +52,13 @@ export var login = {
                 m('div[class=card grey lighten-5]', [
                     m('div[class=card-content black-text]', [
                         m('h1[class=card-title]', 'Login'),
-                        m('form', { class: "col s12", onsubmit: this.controller.login, method: "GET", id: "user-signin-form" }, [
-                            m('div[class=row]', [
-                                m('div[class=input-field col s12]', [
-                                    m('label[for=name]', ' Your username: '),
-                                    m('input[required]', { class: "validate", type: "text", id: "name", name: "username", placeholder: "Username" })
+                        m('div',[
+                            m('form', { onsubmit: this.controller.login, method: "GET", id: "user-signin-form" }, [
+                                m('div[class=row]', [
+                                    m('div[class=input-field col s12]', [
+                                        m('label[for=name]', ' Your username: '),
+                                        m('input[required]', { class: "validate", type: "text", id: "name", name: "username", placeholder: "Username" })
+                                    ]),
                                 ]),
                             ]),
                             m('.success', "UserID" + User.userId),
@@ -69,3 +74,4 @@ export var login = {
         ])
     }
 }
+

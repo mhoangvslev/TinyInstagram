@@ -1,6 +1,7 @@
 import m, { Vnode } from "mithril";
 import { User } from "../models/User";
 import { ToolOperation, UserResult, UserResultItem, getImageFromBlob } from "../utils";
+import { getPostView } from "./PostView";
 
 var attachto: any = document.getElementById('container');
 
@@ -21,18 +22,26 @@ export var getUserView = {
         ])
     }
 }
-m.mount(document.body, getUserView);
 
-//navbar partout osef, on fait des component pour chaque truc et on le mount partout
+export var getUsers = {
+    oninit : User.find,
+    view : function(){}
+}
+
+
+export var getUserProfil = {
+    view:function(){
+        return m(getUserView,m(getPostView));
+    }
+}
+
 
 export var getFollowersView = {
     oninit: User.getFollowers,
     view: function () {
-        return m("h3", [
-            "My Followers", m(".followers-list", User.followers.map(function (follower: any) {
+        return m(".followers-list", User.followers.map(function (follower: any) {
                 return m(".followers-list-item", "@" + follower)
-            }))
-        ]);
+            }));
     }
 }
 
@@ -67,3 +76,30 @@ function getUserUtilsForm(operation: ToolOperation): Vnode<any, any> {
         ])
     ]);
 }
+
+/* au cazou, style
+ function getUserUtilsForm(operation: ToolOperation): Vnode<any, any> {
+    return m('div',{class:"row valign-wrapper"},[
+        m('div',{class:"col s6"}),
+        m('div',{class:"col s6 offset-3 valign"},[
+            m('div',{class:"card grey lighten-5"},[
+                m('div',{class:"card-content black-text"},[
+                    m('span',{class:"card title"},"Register"),
+                    m("form", { action: User.userTool, method: "post", enctype: "multipart/form-data" }, [
+                        // Hidden fields: the servlet will use these to perform update/create on userId
+                        m("input", { type: "hidden", id: "user-util-form-action", name: "actionType", value: operation }),
+                        m("input", { type: "hidden", id: "user-util-form-userId", name: "userId", value: User.userId }), ,
+                        m("ul", [
+                            m("li", ["Username: ", m("input[required]", { type: "text", name: "username", class:"black-text"})]),
+                            m("li", ["Name: ", m("input[required]", { type: "text", name: "name",  class:"black-text" })]),
+                            m("li", ["Profile picture: ", m("input[required]", { type: "file", name: "avatar", class:"black-text" })]),
+                            m("li", m("input", { type: "submit", value: "Submit", class:"black-text"}))
+                        ])
+                    ])
+                ])
+            ])
+        ]),
+        m('div',{class:"col s6"})
+    ]);
+}
+*/
