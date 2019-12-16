@@ -36,7 +36,7 @@ export var login = {
             const data = new FormData(e.target);
             User.doLogin(data.get("username") as string)
                 .then(() => {
-                    m.route.set("/user/:userId", {userId: User.userId});
+                    m.route.set(`/user/${User.userId}`);
                 })
         },
         register: () => {

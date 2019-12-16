@@ -3,6 +3,7 @@ import { getEndpoint, UserResult, UserResultItem } from "../utils";
 
 export var User = {
     userId: "", // mon Id
+    targetUsers: [] as UserResultItem[], // mon cible
     userTool: "",
     followers: [] as UserResultItem[],
     following: [] as UserResultItem[],
@@ -153,7 +154,10 @@ export var User = {
         return m.request({
             method: "GET",
             url: getEndpoint() + "_ah/api/tinyinsta/v1/user/find" + params
-        }).catch((reason: any) => {
+        }).then((result: any) => {
+            User.targetUsers = (result as UserResult).items;
+        })
+        .catch((reason: any) => {
             console.error(reason);
         })
     },

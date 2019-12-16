@@ -4,24 +4,21 @@ import { ToolOperation, UserResult, UserResultItem, getImageFromBlob } from "../
 
 var attachto: any = document.getElementById('container');
 
-export var getUserView: any = {
+export var getUserView = {
+    controller: {
+        userId: m.route.param("userId")
+    },
     view: function (vnode: any) {
-        return m("h2", "Homepage");
-        User.find(vnode.attrs.userId)
-            .then((result: any) => {
-                var user: UserResultItem = (result as UserResult).items[0];
-                // New feed, timeline ici en utilisant User.userId
-                return m("h2", [
-                    "My Homepage",
-                    m("ul", [
-                        // m("li", user.id), // On ne montre pas, par ex
-                        m("li", user.username),
-                        m("li", user.name),
-                        m("li", m("img", { src: getImageFromBlob(user.avatarURL) }))
-                    ])
-                ])
-            })
-
+        const user = User.targetUsers[0];
+        return m("h2", [
+            "My Homepage",
+            m("ul", [
+                // m("li", user.id), // On ne montre pas, par ex
+                m("li", user ? user.username : "No result"),
+                m("li", user ? user.name : "No result"),
+                m("li", m("img", { src: user ? getImageFromBlob(user.avatarURL) : "https://i.pinimg.com/600x315/01/7b/65/017b65a9496d2f475745db80cea2db19.jpg" }))
+            ])
+        ])
     }
 }
 m.mount(document.body, getUserView);
