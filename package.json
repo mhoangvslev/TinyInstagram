@@ -22,6 +22,6 @@
     "@types/jquery": "^3.3.31",
     "@types/mithril": "^2.0.2",
     "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.12"
   }
 }
